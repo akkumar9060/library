@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Return Book</title>
+    <link rel="stylesheet" href="styles/style.css">
+</head>
+<body>
+    <header>
+        <h1>Return Book</h1>
+    </header>
+
+    <form id="returnBookForm">
+        <label for="bookName">Book Name:</label>
+        <input type="text" id="bookName" name="bookName" required>
+
+        <label for="serialNo">Serial No:</label>
+        <input type="text" id="serialNo" name="serialNo" required>
+
+        <label for="issueDate">Issue Date:</label>
+        <input type="date" id="issueDate" readonly>
+
+        <label for="returnDate">Return Date:</label>
+        <input type="date" id="returnDate" required>
+
+        <button type="submit">Return Book</button>
+    </form>
+
+    <script src="scripts/app.js"></script>
+</body>
+</html>

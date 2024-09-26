@@ -1,0 +1,82 @@
+<section>
+    <h2>Master List of Memberships</h2>
+    <table id="membershipsTable">
+        <thead>
+            <tr>
+                <th>Member Name</th>
+                <th>Aadhar No</th>
+                <th>Duration</th>
+            </tr>
+        </thead>
+        <tbody>
+            <!-- Memberships will be inserted here dynamically -->
+        </tbody>
+    </table>
+</section>
+
+<script>
+// Load memberships from localStorage and display in the table
+function loadMemberships() {
+    let memberships = JSON.parse(localStorage.getItem('memberships')) || [];
+
+    let tableBody = document.getElementById('membershipsTable').getElementsByTagName('tbody')[0];
+
+    memberships.forEach(membership => {
+        let row = document.createElement('tr');
+        row.innerHTML = `
+            <td>${membership.memberName}</td>
+            <td>${membership.aadhar}</td>
+            <td>${membership.duration}</td>
+        `;
+        tableBody.appendChild(row);
+    });
+}
+
+// Call function to load memberships when the page loads
+window.onload = function() {
+    loadBooks();
+    loadMemberships();
+};
+</script>
+<section></section>
+    <h2>Master List of Books/Movies</h2>
+    <table id="booksTable">
+        <thead>
+            <tr>
+                <th>Type</th>
+                <th>Serial No</th>
+                <th>Name</th>
+                <th>Author</th>
+                <th>Procurement Date</th>
+            </tr>
+        </thead>
+        <tbody>
+            <!-- Books will be inserted here dynamically -->
+        </tbody>
+    </table>
+</section>
+
+<script>
+// Load books from localStorage and display in the table
+function loadBooks() {
+    let books = JSON.parse(localStorage.getItem('books')) || [];
+
+    let tableBody = document.getElementById('booksTable').getElementsByTagName('tbody')[0];
+    tableBody.innerHTML = '';  // Clear table before inserting data
+
+    books.forEach(book => {
+        let row = document.createElement('tr');
+        row.innerHTML = `
+            <td>${book.type}</td>
+            <td>${book.serialNo}</td>
+            <td>${book.name}</td>
+            <td>${book.author}</td>
+            <td>${book.procurementDate}</td>
+        `;
+        tableBody.appendChild(row);
+    });
+}
+
+// Call function to load books when the page loads
+window.onload = loadBooks;
+</script>

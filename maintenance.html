@@ -1,0 +1,141 @@
+<section>
+    <h2>Add/Update Book/Movie</h2>
+    <form id="addBookForm">
+        <label for="type">Select Type:</label>
+        <input type="radio" name="type" value="book" checked> Book
+        <input type="radio" name="type" value="movie"> Movie
+        <br>
+
+        <label for="name">Name:</label>
+        <input type="text" id="name" name="name" required>
+
+        <label for="serialNo">Serial No:</label>
+        <input type="text" id="serialNo" name="serialNo" required>
+
+        <label for="author">Author:</label>
+        <input type="text" id="author" name="author" required>
+
+        <label for="procurementDate">Procurement Date:</label>
+        <input type="date" id="procurementDate" name="procurementDate" required>
+
+        <button type="submit">Add/Update</button>
+    </form>
+</section>
+
+<script>
+// Handle adding books/movies to localStorage
+document.getElementById('addBookForm').onsubmit = function(e) {
+    e.preventDefault();
+    
+    let type = document.querySelector('input[name="type"]:checked').value;
+    let name = document.getElementById('name').value;
+    let serialNo = document.getElementById('serialNo').value;
+    let author = document.getElementById('author').value;
+    let procurementDate = document.getElementById('procurementDate').value;
+
+    let books = JSON.parse(localStorage.getItem('books')) || [];
+
+    let book = {
+        type: type,
+        name: name,
+        serialNo: serialNo,
+        author: author,
+        procurementDate: procurementDate
+    };
+
+    // Add the new book to the list
+    books.push(book);
+
+    // Save updated books list to localStorage
+    localStorage.setItem('books', JSON.stringify(books));
+
+    alert('Book/Movie added successfully');
+    document.getElementById('addBookForm').reset();
+};
+</script>
+<section></section>
+    <h2>Add/Update Membership</h2>
+    <form id="addMembershipForm">
+        <label for="memberName">Name:</label>
+        <input type="text" id="memberName" name="memberName" required>
+
+        <label for="aadhar">Aadhar Card No:</label>
+        <input type="text" id="aadhar" name="aadhar" required>
+
+        <label for="duration">Membership Duration:</label>
+        <input type="radio" name="duration" value="6 months" checked> 6 months
+        <input type="radio" name="duration" value="1 year"> 1 year
+        <input type="radio" name="duration" value="2 years"> 2 years
+
+        <button type="submit">Add/Update Membership</button>
+    </form>
+</section>
+
+<script>
+// Handle adding memberships to localStorage
+document.getElementById('addMembershipForm').onsubmit = function(e) {
+    e.preventDefault();
+    
+    let memberName = document.getElementById('memberName').value;
+    let aadhar = document.getElementById('aadhar').value;
+    let duration = document.querySelector('input[name="duration"]:checked').value;
+
+    let memberships = JSON.parse(localStorage.getItem('memberships')) || [];
+
+    let membership = {
+        memberName: memberName,
+        aadhar: aadhar,
+        duration: duration
+    };
+
+    // Add the new membership to the list
+    memberships.push(membership);
+
+    // Save updated memberships list to localStorage
+    localStorage.setItem('memberships', JSON.stringify(memberships));
+
+    alert('Membership added successfully');
+    document.getElementById('addMembershipForm').reset();
+};
+</script>
+<section></section>
+    <h2>Master List of Memberships</h2>
+    <table id="membershipsTable">
+        <thead>
+            <tr>
+                <th>Member Name</th>
+                <th>Aadhar No</th>
+                <th>Duration</th>
+            </tr>
+        </thead>
+        <tbody>
+            <!-- Memberships will be inserted here dynamically -->
+        </tbody>
+    </table>
+</section>
+
+<script>
+// Load memberships from localStorage and display in the table
+function loadMemberships() {
+    let memberships = JSON.parse(localStorage.getItem('memberships')) || [];
+
+    let tableBody = document.getElementById('membershipsTable').getElementsByTagName('tbody')[0];
+    tableBody.innerHTML = '';  // Clear table before inserting data
+
+    memberships.forEach(membership => {
+        let row = document.createElement('tr');
+        row.innerHTML = `
+            <td>${membership.memberName}</td>
+            <td>${membership.aadhar}</td>
+            <td>${membership.duration}</td>
+        `;
+        tableBody.appendChild(row);
+    });
+}
+
+// Call function to load memberships when the page loads
+window.onload = function() {
+    loadBooks();  // Call for books
+    loadMemberships();  // Call for memberships
+};
+</script>

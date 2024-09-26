@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Issue Book</title>
+    <link rel="stylesheet" href="styles/style.css">
+</head>
+<body>
+    <header>
+        <h1>Issue Book</h1>
+    </header>
+
+    <form id="issueBookForm">
+        <label for="bookName">Book Name:</label>
+        <input type="text" id="bookName" name="bookName" required>
+
+        <label for="author">Author:</label>
+        <input type="text" id="author" name="author" readonly>
+
+        <label for="issueDate">Issue Date:</label>
+        <input type="date" id="issueDate" name="issueDate" required>
+
+        <label for="returnDate">Return Date:</label>
+        <input type="date" id="returnDate" readonly>
+
+        <button type="submit">Issue Book</button>
+    </form>
+
+    <script src="scripts/app.js"></script>
+</body>
+</html>
+<script>
+    // Handle issuing books and storing in localStorage
+    document.getElementById('issueBookForm').onsubmit = function(e) {
+        e.preventDefault();
+        
+        let bookName = document.getElementById('bookName').value;
+        let author = document.getElementById('author').value;
+        let issueDate = document.getElementById('issueDate').value;
+        let returnDate = document.getElementById('returnDate').value;
+    
+        let transactions = JSON.parse(localStorage.getItem('transactions')) || [];
+    
+        let transaction = {
+            bookName: bookName,
+            author: author,
+            issueDate: issueDate,
+            returnDate: returnDate
+        };
+    
+        // Add the new transaction to the list
+        transactions.push(transaction);
+    
+        // Save updated transactions list to localStorage
+        localStorage.setItem('transactions', JSON.stringify(transactions));
+    
+        alert('Book issued successfully');
+        document.getElementById('issueBookForm').reset();
+    };
+    </script>
